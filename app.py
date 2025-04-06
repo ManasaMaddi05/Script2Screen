@@ -4,7 +4,7 @@ import joblib
 import openai
 
 # Set OpenAI Key
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+openai.api_key = st.secrets["AIzaSyCmb52SjDt7GckEQvgy_y3CUuoSjrKtVss"]
 
 # Load models
 revenue_model = joblib.load("revenue_model.pkl")
