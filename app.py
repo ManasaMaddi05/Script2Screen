@@ -1,54 +1,49 @@
 import streamlit as st
 import numpy as np
 import joblib
-import openai
+import google.generativeai as genai
+from sklearn.feature_extraction.text import TfidfVectorizer
 
-# Set OpenAI Key
-openai.api_key = st.secrets["AIzaSyCmb52SjDt7GckEQvgy_y3CUuoSjrKtVss"]
+# Set Gemini API Key
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-# Load models
+# Load models and vectorizer
 revenue_model = joblib.load("revenue_model.pkl")
 roi_model = joblib.load("roi_model.pkl")
 tfidf = joblib.load("tfidf_vectorizer.pkl")
 
-# UI
+# ROI label mapping
+roi_map = {0: "Flop", 1: "Hit", 2: "Superhit", 3: "Blockbuster"}
+
+# Streamlit UI
 st.set_page_config(page_title="Script2Screen 🎬", layout="centered")
 st.title("🎬 Script2Screen")
-st.markdown("**Predict your movie's box office success and see its poster come to life!**")
+st.markdown("**Predict your movie's success & generate a poster based on its synopsis.**")
 
-synopsis = st.text_area("✏️ Enter your movie synopsis:", height=250)
+synopsis = st.text_area("📜 Enter your movie synopsis below:", height=250)
 
 if st.button("🚀 Predict & Generate"):
     if synopsis.strip() == "":
-        st.warning("Please enter a synopsis.")
+        st.warning("Please enter a synopsis to continue.")
     else:
-        # Preprocess
+        # --- Predict Success ---
         X = tfidf.transform([synopsis])
-
-        # Revenue Prediction
         log_revenue = revenue_model.predict(X)[0]
-        revenue = np.expm1(log_revenue)
-
-        # ROI Classification
+        predicted_revenue = np.expm1(log_revenue)
         roi_pred = roi_model.predict(X)[0]
-        roi_map = {0: "Flop", 1: "Hit", 2: "Superhit", 3: "Blockbuster"}
         roi_label = roi_map.get(roi_pred, "Unknown")
 
-        # Output
+        # --- Show Predictions ---
         st.subheader("📊 Predictions")
-        st.success(f"💰 **Estimated Revenue**: ${revenue:,.2f}")
-        st.info(f"🏆 **Predicted Success Level**: {roi_label}")
+        st.success(f"💰 **Predicted Revenue**: ${predicted_revenue:,.2f}")
+        st.info(f"🏆 **Predicted Success Metric**: {roi_label}")
 
-        # AI Poster Generation
+        # --- Generate Image with Gemini ---
         st.subheader("🎨 AI-Generated Poster")
-        with st.spinner("Generating image..."):
+        with st.spinner("Generating visual..."):
             try:
-                image_response = openai.Image.create(
-                    prompt=synopsis,
-                    n=1,
-                    size="512x512"
-                )
-                image_url = image_response["data"][0]["url"]
-                st.image(image_url, caption="AI-generated movie poster")
+                model = genai.GenerativeModel("models/gemini-pro-vision")
+                response = model.generate_content(f"Create a cinematic movie poster based on this synopsis: {synopsis}")
+                st.image(response._result.candidates[0].content.parts[0].inline_data.data, caption="AI-generated poster", use_column_width=True)
             except Exception as e:
-                st.error(f"Image generation failed: {e}")
+                st.error(f"❌ Failed to generate image: {e}")
