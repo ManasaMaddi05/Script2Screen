@@ -1,4 +1,4 @@
-# Script2Screen
+# 🎥 Script2Screen
 
 
 ## Inspiration 
