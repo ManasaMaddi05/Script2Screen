@@ -5,3 +5,15 @@ scikit-learn
 lightgbm
 sentence-transformers
 joblib
+ast
+gensim
+sklearn
+nltk
+xgboost
+cloudpickle
+os
+sentence_transformers
+transformers
+torch
+vaderSentiment
+huggingface_hub

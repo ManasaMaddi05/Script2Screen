@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Script2Screen</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='100'>🎬</text></svg>"
+    />
+  </head>
+  <body>
+    <h1 class="main-title">🎬 Script2Screen</h1>
+
+    <h2 class="prob-statement1">40% of all movies FAIL in theaters.</h2>
+    <br />
+    <h3 class="prob-statement">
+      Every year, hundreds of films flop → wasting millions in production and
+      marketing
+      <br /><br />
+      Studios often rely on structured data like budget and release date, but
+      ignore the strongest signal of success: <span id="pop">the story</span>.
+      <br /><br />
+      <em id="pop"
+        >Without using the narrative, forecasting success is just a guessing
+        game</em
+      >
+    </h3>
+
+    <h3 id="normal">
+      That's where our machine learning model comes in. By analyzing a movie's
+      synopsis, budget, and release year,<br />it can predict estimated revenue
+      and even suggest a fitting movie title. This gives scriptwriters,
+      directors, studios<br />and the like a smarter way to forecast a film's
+      potential.
+    </h3>
+    <br /><br />
+
+    <div class="container">
+      <h1>Model 1: Predict Revenue & Suggest Title</h1>
+      <br />
+      <form method="POST">
+        <input type="hidden" name="form_type" value="main_predictor" />
+        <label>Overview:</label>
+        <textarea name="overview" rows="4" required></textarea><br />
+        <label>Budget ($):</label>
+        <input type="number" name="budget" required /><br />
+        <label>Release Year:</label>
+        <input type="number" name="release_year" required /><br />
+        <button type="submit">Predict</button>
+      </form>
+
+      {% if prediction %}
+      <div class="result">
+        <h2>📈 Predicted Revenue: {{ revenue }}</h2>
+        <h2>🎞️ Suggested Title: {{ suggested_title }}</h2>
+      </div>
+      {% endif %}
+    </div>
+
+    <br /><br /><br /><br />
+    <h3 id="normal">
+      Our next model takes things a step further. It allows these same
+      individuals to see how their movie will perform relative to box office
+      thresholds, providing a deeper, more detailed forecast that considers
+      industry benchmarks and trends. This more complex model helps predict not
+      just revenue, but the likelihood of hitting specific financial targets.
+    </h3>
+
+    <br /><br /><br /><br />
+    <div class="container">
+      <h1>Model 2: Revenue Category Predictor</h1>
+      <form method="POST">
+        <input type="hidden" name="form_type" value="glove_predictor" />
+        <label>Overview:</label>
+        <textarea name="overview2" rows="4" required></textarea><br />
+        <label id="title">Budget ($):</label>
+        <input type="number" name="budget2" required /><br />
+        <label id="title">Runtime (mins):</label>
+        <input type="number" name="runtime2" required /><br />
+        <label id="title">Adult (True/False)</label>
+        <label for="true"
+          ><input type="radio" name="adult" required /> True</label
+        >
+        <label for="false"
+          ><input type="radio" name="adult" required /> False</label
+        >
+
+        <label id="title">Genre(s):</label>
+        <label for="action"><input type="checkbox" /> Action</label>
+        <label for="adventure"><input type="checkbox" /> Adventure</label>
+        <label for="comedy"><input type="checkbox" /> Comedy</label>
+        <label for="crime"><input type="checkbox" /> Crime</label>
+        <label for="drama"><input type="checkbox" /> Drama</label>
+        <label for="fantasy"><input type="checkbox" /> Fantasy</label>
+        <label for="romance"><input type="checkbox" /> Romance</label>
+        <label for="scifi"><input type="checkbox" /> Scientific Fiction</label>
+        <label for="thriller"><input type="checkbox" /> Thriller</label>
+
+        <label id="title">Production Company:</label>
+        <input type="text" name="company" required /><br />
+
+        <label id="title">Production Country:</label>
+        <input type="text" name="country" required /><br />
+
+        <button type="submit">Predict Category</button>
+      </form>
+
+      {% if prediction2 %}
+      <div class="result">
+        <h3>💰 Predicted Revenue Class: {{ revenue_category }}</h3>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Script2Screen</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1 class="main-title">Script2Screen</h1>
+    <div class="container">
+      <h1>🎬 Movie Revenue & Title Predictor</h1>
+
+      <form method="POST">
+        <label>Movie Overview:</label><br />
+        <textarea name="overview" rows="5" required></textarea><br /><br />
+
+        <label>Budget ($):</label><br />
+        <input type="number" name="budget" required /><br /><br />
+
+        <label>Release Year:</label><br />
+        <input type="number" name="release_year" required /><br /><br />
+
+        <button type="submit">Predict</button>
+      </form>
+
+      {% if prediction %}
+      <div class="result">
+        <h2>📈 Predicted Revenue: {{ revenue }}</h2>
+        <h2>🎞️ Suggested Title: "{{ suggested_title }}"</h2>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+</html> -->
