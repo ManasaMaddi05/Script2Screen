@@ -1,5 +1,7 @@
 # 🎥 Script2Screen
 
+## 🎥 Demo Video
+[Watch the demo on YouTube](https://youtu.be/Y40cY5LKxGE)
 
 ## Inspiration 
 
