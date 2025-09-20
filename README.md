@@ -3,6 +3,10 @@
 ## 🎥 Demo Video
 [Watch the demo on YouTube](https://youtu.be/Y40cY5LKxGE)
 
+## 🎥 Demo Video
+[![Watch the video](https://img.youtube.com/vi/Y40cY5LKxGE/0.jpg)](https://youtu.be/Y40cY5LKxGE)
+
+
 ## Inspiration 
 
 We were initially having trouble on which aspect of pop culture to focus our project on. Naturally, the conversation drifted and we started listing out the recent movies that we’ve seen and our thoughts on them. We all seemed to dislike the same movies, and upon research into their financials, it seems like these movies flopped for a reason. In discussing our critiques, they mainly lied within the story. Thus, our idea stemmed here. We wanted to build some studio-facing system that analyzes the success of a film based on its core screenplay. 
