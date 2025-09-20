@@ -6,9 +6,6 @@
 ## 🎥 Demo Video
 [Watch the demo on YouTube](https://youtu.be/Y40cY5LKxGE)
 
-## 🎥 Demo Video
-[![Watch the video](https://img.youtube.com/vi/Y40cY5LKxGE/0.jpg)](https://youtu.be/Y40cY5LKxGE)
-
 
 ## Inspiration 
 
