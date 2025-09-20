@@ -1,5 +1,8 @@
 # 🎥 Script2Screen
 
+![App Screenshot](script2screencoverpage.png) <!-- replace with actual path if you want to show a screenshot -->
+
+
 ## 🎥 Demo Video
 [Watch the demo on YouTube](https://youtu.be/Y40cY5LKxGE)
 
